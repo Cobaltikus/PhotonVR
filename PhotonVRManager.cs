@@ -290,8 +290,11 @@ namespace Photon.VR
             Debug.Log("Connected");
 
             PhotonNetwork.LocalPlayer.NickName = PlayerPrefs.GetString("Username");
-            PhotonNetwork.LocalPlayer.CustomProperties["Colour"] = JsonUtility.ToJson(Colour);
-            PhotonNetwork.LocalPlayer.CustomProperties["Cosmetics"] = Cosmetics;
+
+            ExitGames.Client.Photon.Hashtable hash = new ExitGames.Client.Photon.Hashtable();
+            hash["Colour"] = JsonUtility.ToJson(Colour);
+            hash["Cosmetics"] = Cosmetics;
+            PhotonNetwork.LocalPlayer.SetCustomProperties(hash);
 
             if (JoinRoomOnConnect)
                 JoinRandomRoom(DefaultQueue, DefaultRoomLimit);
